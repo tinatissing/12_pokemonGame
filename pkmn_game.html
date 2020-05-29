@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>12U Computer Science CPT</title>
+    
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Russo+One&display=swap" rel="stylesheet">
+   
+</head>
+
+<body>
+
+    <h1>12U Computer Science CPT</h1>
+    
+    <nav>
+        <ul>
+            <li><a href="cpt_index.html">Introduction</a></li>
+            <li><a href="pkmn_game.html">Play!</a></li>
+            <li><a href="reflection.html">Reflection</a></li>
+            <li><a href="bonus.html">Bonus</a></li>
+        </ul>
+    </nav>
+    
+    <div id="container">
+    
+    <img src="images/pokemon_title.png"  class="start" height="60%" alt="Pokemon logo">
+    
+    </div>
+    
+    
+    
+    <canvas id="myCanvas" height="175px" width="1000px" tabindex="1">
+    
+    </canvas>
+    
+    <script>
+	
+	var canvas = document.getElementById("myCanvas");
+	
+	var c = canvas.getContext("2d");
+	
+	canvas.addEventListener("keydown", wordCheck1);
+	
+	var pokemon = "";
+	var hp = 0;
+	var newHp = 0;
+	var atkName = [];
+	var atk = [];
+	var status = "";
+	var a = 0;
+	
+	var enemy = "";
+	var enemyHp = 0;
+	var newEnemyHp = 0;
+	var enemyAtkName = [];
+	var enemyAtk = [];
+	var enemyStatus = "";
+	
+	var level = 1;
+	var time = 2000;
+	
+	function start() {
+				
+		c.font = '40px Arial';
+		c.fillStyle = "#000";
+		c.fillText("Start Game [s]", 350, 50);
+
+	}
+	
+	function wordCheck1(e) {
+		//alert(e.keyCode);
+		
+		var keyCode_num = e.keyCode;
+		var clicked = String.fromCharCode(keyCode_num);
+		
+		if (clicked == "S") {
+			c.clearRect(0, 0, 1000, 600);
+			document.getElementById("container").innerHTML = "";
+			
+			canvas.removeEventListener("keydown", wordCheck1);
+			canvas.addEventListener("keydown", wordCheck2);
+
+			choosePkmn();
+		}
+		
+	}
+	
+	function wordCheck2(e) {
+		
+		keyCode_num = e.keyCode;
+		clicked = String.fromCharCode(keyCode_num);
+		
+		if (clicked == "1") {
+			pokemon = "Blaziken";
+			hp = 130 + (65*(level-1));
+			newHp = 130 + (65*(level-1));
+			atkName = ["Counter", "Focus Blast", "Fire Spin", "Flare Blitz"];
+			atk = [20, 45, "burn", "recoil"];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+		if (clicked == "2") {
+			pokemon = "Alakazam";
+			hp = 110 + (55*(level-1));
+			newHp = 110 + (55*(level-1));
+			atkName = ["Energy Ball", "Confusion", "Psyshock", "Shadow Ball"];
+			atk = [25, "confused", "recoil", 40];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+		if (clicked == "3") {
+			pokemon = "Lucario";
+			hp = 120 + (60*(level-1));
+			newHp = 120 + (60*(level-1));
+			atkName = ["Dark Pulse", "Aura Sphere", "Dragon Pulse", "Extreme Speed"];
+			atk = ["increase", 45, "recoil", 20];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+		if (clicked == "4") {
+			pokemon = "Luxray";
+			hp = 140 + (70*(level-1));
+			newHp = 140 + (70*(level-1));
+			atkName = ["Discharge", "Scary Face", "Crunch", "Spark"];
+			atk = ["increase", "confused", 20, 30];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+		if (clicked == "5") {
+			pokemon = "Pikachu";
+			hp = 150 + (75*(level-1));
+			newHp = 150 + (75*(level-1));
+			atkName = ["Quick Attack", "Thunderbolt", "Thunder Jolt", "Slam"];
+			atk = [20, "increase", "recoil", 40];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+		if (clicked == "6") {
+			pokemon = "Dragonair";
+			hp = 100 + (50*(level-1));
+			newHp = 100 + (50*(level-1));
+			atkName = ["Hyper Beam", "Dragon Rage", "Aqua Veil", "Surf"];
+			atk = [45, "recoil", "heal", 25];
+			canvas.removeEventListener("keydown", wordCheck2);
+			canvas.addEventListener("keydown", wordCheck3);
+			battle();
+		}
+	}
+	
+	function choosePkmn() {
+		
+		document.getElementById("container").innerHTML = "";
+		c.clearRect(0, 0, 1000, 175);
+		
+		if (window.innerWidth > 900) {
+			var height = "50%";
+			var margin = "5px 5%";
+		}
+		else if (window.innerWidth > 750) {
+			var height = "40%";	
+			var margin = "5px 5%";
+		}
+		else if (window.innerWidth > 650) {
+			var height = "40%";	
+			var margin = "5px 2%";
+		}
+		else {
+			var height = "30%";	
+			var margin = "5px 3%";
+		}
+		
+		enemy = "";
+		enemyHp = 0;
+		newEnemyHp = 0;
+		enemyAtkName = [];
+		enemyAtk = [];
+		
+		document.getElementById("container").style.backgroundImage = "url('images/choose_background.jpeg')";
+		document.getElementById("container").style.backgroundSize = "cover";
+		
+		var blazikenImg = document.createElement("img");
+		blazikenImg.setAttribute("src", "images/blaziken.gif");
+		blazikenImg.setAttribute("height", height);
+		blazikenImg.setAttribute("alt", "Blaziken");
+		blazikenImg.style.margin = margin;
+		document.getElementById("container").appendChild(blazikenImg);
+		
+		var alakazamImg = document.createElement("img");
+		alakazamImg.setAttribute("src", "images/alakazam.gif");
+		alakazamImg.setAttribute("height", height);
+		alakazamImg.setAttribute("alt", "Alakazam");
+		alakazamImg.style.margin = margin;
+		document.getElementById("container").appendChild(alakazamImg);
+		
+		var lucarioImg = document.createElement("img");
+		lucarioImg.setAttribute("src", "images/lucario.gif");
+		lucarioImg.setAttribute("height", height);
+		lucarioImg.setAttribute("alt", "Lucario");
+		lucarioImg.style.margin = margin;
+		document.getElementById("container").appendChild(lucarioImg);
+		
+		var luxrayImg = document.createElement("img");
+		luxrayImg.setAttribute("src", "images/luxray.gif");
+		luxrayImg.setAttribute("height", height);
+		luxrayImg.setAttribute("alt", "Luxray");
+		luxrayImg.style.margin = margin;
+		document.getElementById("container").appendChild(luxrayImg);
+		
+		var pikachuImg = document.createElement("img");
+		pikachuImg.setAttribute("src", "images/pikachu.gif");
+		pikachuImg.setAttribute("height", height);
+		pikachuImg.setAttribute("alt", "Pikachu");
+		pikachuImg.style.margin = margin;
+		document.getElementById("container").appendChild(pikachuImg);
+		
+		var dragonairImg = document.createElement("img");
+		dragonairImg.setAttribute("src", "images/dragonair.gif");
+		dragonairImg.setAttribute("height", height);
+		dragonairImg.setAttribute("alt", "Dragonair");
+		dragonairImg.style.margin = margin;
+		document.getElementById("container").appendChild(dragonairImg);
+		
+		document.getElementById("myCanvas").style.backgroundImage = "url('images/menu_background.jpeg')";
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[1]Blaziken", 70, 70);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[2]Alakazam", 405, 70);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[3]Lucario", 700, 70);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[4]Luxray", 70, 130);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[5]Pikachu", 405, 130);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[6]Dragonair", 700, 130);
+		
+		if (level == 1) {
+			enemy = "Ivysaur";
+			enemyHp = 90;
+			newEnemyHp = 70;
+			enemyAtkName = ["Vine Whip", "Double Edge", "Ingrain", "Tackle"];
+			enemyAtk = [25, "recoil", "heal", 15];
+		}
+		else if (level == 2) {
+			enemy = "Spinda";
+			enemyHp = 160;
+			newEnemyHp = 140;
+			enemyAtkName = ["Dizzy Punch", "Thrash", "Double Edge", "Tackle"];
+			enemyAtk = ["confused", 35, "recoil", 15];
+		}
+		else if (level == 3) {
+			enemy = "Crobat";
+			enemyHp = 230;
+			newEnemyHp = 210;
+			enemyAtkName = ["Air Slash", "Confuse Ray", "Poison Fang", "Air Cutter"];
+			enemyAtk = [20, "confused", 40, "increase"];
+		}
+		else if (level == 4) {
+			enemy = "Blastoise";
+			enemyHp = 300;
+			newEnemyHp = 280;
+			enemyAtkName = ["Hydro Pump", "Water Pulse", "Skull Bash", "Water Gun"];
+			enemyAtk = [50, "heal", "recoil", 30];
+		}
+		else if (level == 5) {
+			enemy = "Zapdos";
+			enemyHp = 370;
+			newEnemyHp = 350;
+			enemyAtkName = ["Thunder", "Drill Peck", "Thundershock", "Zap Cannon"];
+			enemyAtk = ["increase", 35, "recoil", 60];
+		}
+		
+	}
+	
+	function battle() {	
+		
+		c.clearRect(0, 0, 1000, 600);
+		document.getElementById("container").innerHTML = "";	
+		
+		document.getElementById("container").style.backgroundImage = "url('images/battle_background.jpeg')";	
+		document.getElementById("myCanvas").style.backgroundImage = "cover";
+		
+		pokemonImg = document.createElement("img");
+		pokemonImg.setAttribute("src", "images/" + pokemon + ".gif");
+		pokemonImg.setAttribute("height", "60%");
+		pokemonImg.setAttribute("alt", pokemon);
+		pokemonImg.style.marginTop = "10%";
+		pokemonImg.style.transform = "scaleX(-1)";
+		document.getElementById("container").appendChild(pokemonImg);
+		
+		pokemonImg = document.createElement("img");
+		pokemonImg.setAttribute("src", "images/" + enemy + ".gif");
+		pokemonImg.setAttribute("height", "60%");
+		pokemonImg.setAttribute("alt", enemy);
+		pokemonImg.style.marginTop = "10%";
+		pokemonImg.style.marginLeft = "30%";
+		document.getElementById("container").appendChild(pokemonImg);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[1] " + atkName[0], 70, 85);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[2] " + atkName[1], 70, 140);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[3] " + atkName[2], 720, 85);
+		
+		c.font = "30px Arial";
+		c.fillStyle = "#000";
+		c.fillText("[4] " + atkName[3], 720, 140);
+		
+		c.font = "20px Arial";
+		c.fillStyle = "#000";
+		c.fillText("Level " + level, 430, 60);
+		
+		c.font = "50px Arial";
+		c.fillStyle = "#000";
+		c.fillText(pokemon, 375, 100);
+		
+		c.font = "25px Arial";
+		c.fillStyle = "#000";
+		c.fillText("hp", 300, 130);
+		
+		c.beginPath();
+		c.moveTo(350, 120);	
+		c.lineTo(350 + (hp*2)/(level), 120);
+	
+		c.strokeStyle = "#35D024";	
+		c.lineWidth = 10;	
+		c.stroke();
+			
+	}
+	
+	function wordCheck3(e) {
+		canvas.removeEventListener("keydown", wordCheck3);
+		keyCode_num = e.keyCode;
+		
+		statusCheck();	
+		
+		function statusCheck() {
+			if (status == "burn") {
+				newHp = newHp - 10;
+			}
+			
+			if (enemyStatus == "burn") {
+				newEnemyHp = newEnemyHp - 10;
+			}
+			
+			if (status == "confused") {
+				newHp = newHp - 10;
+			}
+			
+			if (enemyStatus == "confused") {
+				newEnemyHp = newEnemyHp - 10;
+			}
+			
+		}
+		
+		for (var x = 49; x <= 52; x++) {
+			if (keyCode_num == x) {
+				if (atk[(x-49)] == "confused") {
+					enemyStatus = "confused";
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your opponents pokemon is confused and hits itself!", 10, 30);
+					window.setTimeout(timer, time);
+					newEnemyHp = newEnemyHp - 20;
+				}
+				else if (atk[(x-49)] == "burn") {
+					enemyStatus = "burn";
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your opponents pokemon is burnt and takes damage!", 10, 30);
+					window.setTimeout(timer, time);
+					newEnemyHp = newEnemyHp - 10;
+				}
+				else if (atk[(x-49)] == "recoil") {
+					newEnemyHp = newEnemyHp - 60;
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your pokemon is hurt by recoil!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp - 30;
+				}
+				else if (atk[(x-49)] == "increase") {
+					newEnemyHp = newEnemyHp - 25 - a;
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your opponents pokemon takes " + (25 + a) + " damage!", 10, 30);
+					window.setTimeout(timer, time);
+					if (a >= 0) {
+						a = a + 5;	
+					}
+				}
+				else if (atk[(x-49)] == "heal") {
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your pokemon gains 25 hp!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp + 25;
+				}
+				else {
+					newEnemyHp = newEnemyHp - atk[(x-49)];
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(pokemon + " used " + atkName[x-49] + ". Your opponents pokemon takes " + atk[x-49] + " damage!", 10, 30);
+					window.setTimeout(timer, time);
+				}
+				x = 53;
+			}
+		}
+		if (newEnemyHp <= 0) {
+			level++
+			if (level == 6) {
+				end();
+			}
+			else {
+				window.setTimeout(nextLevel, time);
+			}
+		}
+		else {
+			window.setTimeout(oppTurn, time);
+		}
+	}
+	
+	function oppTurn() {
+		var ranAtk = Math.floor(Math.random() * (4) + 1);
+		
+		
+		for (var y = 0; y <= 4; y++) {
+			if (ranAtk == y+1) {
+				if (enemyAtk[y] == "confused") {
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your pokemon is confused and hits itself!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp - 20;
+				}
+				else if (enemyAtk[y] == "burn") {
+					status = "burn";
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your pokemon is burnt and hits itself!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp - 10;
+				}
+				else if (enemyAtk[y] == "recoil") {
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your pokemon takes 60 damage!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp - 60;
+					newEnemyHp = newEnemyHp - 30;
+				}
+				else if (enemyAtk[y] == "increase") {
+					newHp = newHp - 25 - a;
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your pokemon takes " + (25 + a) + " damage!", 10, 30);
+					window.setTimeout(timer, time);
+					if (a == 0) {
+						a = 25;	
+					}
+					if (a >= 25) {
+						a = a + 5;	
+					}
+				}
+				else if (enemyAtk[y] == "heal") {
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your opponents pokemon gains 25 hp!", 10, 30);
+					window.setTimeout(timer, time);
+					newEnemyHp = newEnemyHp + 25;
+				}
+				else {
+					c.font = "25px Georgia"
+					c.fillStyle = "#000";
+					c.fillText(enemy + " used " + enemyAtkName[y] + ". Your pokemon takes " + enemyAtk[y] + " damage!", 10, 30);
+					window.setTimeout(timer, time);
+					newHp = newHp - enemyAtk[y];	
+				}
+				y = 5;
+			}
+		} 
+		animate();
+	}
+	
+	function nextLevel() {
+		c.font = "25px Georgia"
+		c.fillStyle = "#000";
+		c.fillText("You win! Now for level " + level, 10, 30);
+		canvas.removeEventListener("keydown", wordCheck3);
+		canvas.addEventListener("keydown", wordCheck2);
+		window.setTimeout(choosePkmn, time);	
+	}
+	
+	function timer() {
+		c.clearRect(0, 0, 1000, 40);
+	}
+	
+	function animate() {
+		if (newHp <= 0) {
+			window.setTimeout(loseLevel, time);
+			function loseLevel() {
+				c.font = "25px Georgia"
+				c.fillStyle = "#000";
+				c.fillText("You lose. Try again?", 10, 30);
+				canvas.addEventListener("keydown", wordCheck2);
+				window.setTimeout(choosePkmn, time);
+			}
+		}
+		else if (newHp < hp) {
+			var clear = (hp - newHp)*2/level;
+			var startbox = (350 + (hp*2)/level);
+			
+			if (newHp > 0) {
+				c.clearRect((startbox - clear), 110, clear, 110);
+			}
+			else if (newHp < 0) {
+				c.clearRect(350, 110, startbox, 110);
+			}
+		}
+		window.setTimeout(newTurn, time);
+	}
+	
+	function newTurn() {
+		canvas.addEventListener("keydown", wordCheck3);
+	}
+		
+	function end() {
+		document.getElementById("container").innerHTML = "";
+		document.getElementById("container").style.backgroundImage = "url('images/win.jpeg')";
+		document.getElementById("container").style.backgroundSize = "cover";	
+		document.getElementById("myCanvas").style.backgroundImage = "url('images/tiling_background.jpeg')";
+		c.clearRect(0, 0, 1000, 175);	
+		c.font = "50px Georgia"
+		c.fillStyle = "#000";
+		c.fillText("Winner!!! You are the Pokemon Champion!", 30, 100);
+	}
+	
+	start();
+	
+	</script>
+
+</body>
+
+</html>

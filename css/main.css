@@ -1,0 +1,280 @@
+body { 
+	background: url(../images/pokeball_background.png) center center fixed;
+	background-size: cover;
+	font-family: 'Press Start 2P', cursive;
+}
+
+#myCanvas {
+	display: block;	
+	border:2px solid #000;
+	border-top: 0px;
+	margin: auto;
+	margin-top: 0px;
+	background-color: #FFF;
+}
+
+#container {
+	display: block;
+	border:2px solid #000;
+	border-bottom: 0px;
+	margin: auto;
+	background-color: #FFF;	
+	height: 425px;
+	width: 1000px;
+}
+
+h1 {
+	text-align: center;
+	/*font-size: 2em;*/
+}
+
+.start {
+	margin: 8% 13%;
+}
+
+/*img {
+	margin: 5px 50px;
+}*/
+
+a {
+	color: #c81512;
+	margin: auto;
+	font-size: 0.9em;
+}
+	
+a:hover {
+	color: #FC9A9A;	
+}
+
+@media screen and (max-width: 599px) {
+	body {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	
+	nav {
+		background-color: #FFF;
+		box-shadow: 7px 7px 4px #000;
+		padding: 2px;
+		grid-column: 1/4;
+	}
+	nav li {
+		display: inline-block;
+		margin: 0px 2%;
+		text-align: center;
+		padding-top: 2px;
+	}
+	
+	#container {
+		margin-top: 40px;
+	}
+	
+	#container, #myCanvas {
+		grid-column: 1/4;
+		width: 100%;
+	}
+	
+	h1 {
+		grid-column: 1/4;
+		color: #FFF;
+	}
+	
+	h2 {
+		margin: 30px 20px 20px 60px;
+		color: #FFF;	
+		grid-column: 1/4;
+	}
+	
+	.black {
+		color: #000;	
+	}
+	
+	p {
+		margin: 20px;;
+		line-height: 250%;	
+		padding: 20px;
+		background-color: #D8DEE2;
+		box-shadow: 10px 10px 5px #000;
+		font-family: 'Russo One', sans-serif;
+		grid-column: 1/4;
+	}
+	
+	.big {
+		background-color: #F5F5E2;	
+		grid-column: 1/4;
+	}
+	
+	.left, .mid, .right {
+		grid-column: 1/4;	
+	}
+}
+@media screen and (min-width: 600px) {
+	body {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		font-size: 18px;
+		grid-template-rows: .1fr .1fr .1fr .5fr 1fr .1fr;
+	}
+	
+	nav {
+		background-color: #FFF;
+		box-shadow: 7px 7px 4px #000;
+		padding: 2px;
+		grid-column: 1/4;
+		grid-row: 2/3;
+	}
+	nav li {
+		display: inline-block;
+		margin: 0px 2%;
+		text-align: center;
+		padding-top: 2px;
+	}
+	
+	#container {
+		margin-top: 40px;
+	}
+	
+	#container, #myCanvas {
+		grid-column: 1/4;
+		width: 100%;
+	}
+	
+	h1 {
+		grid-column: 1/4;
+		color: #FFF;
+		grid-row: 1/2;
+	}
+	
+	h2 {
+		margin: 30px 20px 20px 60px;
+		color: #FFF;	
+		grid-column: 1/4;
+		grid-row: 3/4;
+	}
+	
+	.black {
+		color: #000;	
+	}
+	
+	p {
+		margin: 20px;;
+		line-height: 250%;	
+		padding: 20px;
+		background-color: #D8DEE2;
+		box-shadow: 10px 10px 5px #000;
+		font-family: 'Russo One', sans-serif;
+	}
+	
+	.big {
+		background-color: #F5F5E2;	
+		grid-column: 1/2;
+		grid-row: 4/6;
+	}
+	
+	.left, .mid {
+		grid-column: 2/4;	
+	}
+	
+	.left {
+		grid-row: 4/5;	
+	}
+	
+	.mid {
+		grid-row: 5/6;	
+	}
+	
+	.right {
+		grid-column: 1/4;
+		grid-row: 6/7;
+	}
+	
+	.start {
+		width: 80%;	
+		margin: 8% 10%;
+	}
+}
+
+@media screen and (min-width: 900px) {
+	
+	body {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;	
+		font-size: 20px;
+		grid-template-rows: .1fr .1fr .1fr .1fr 2.5fr;
+	}
+	
+	nav {
+		background-color: #FFF;
+		box-shadow: 7px 7px 4px #000;
+		padding: 2px;
+		grid-column: 1/4;
+		grid-row: 2/3;
+	}
+	
+	nav li {
+		display: inline-block;
+		margin: 0px 5%;
+		text-align: center;
+	}
+	
+	#container {
+		margin-top: 40px;	
+	}
+	
+	#container, #myCanvas {
+		grid-column: 1/4;
+	}
+	
+	h1 {
+		grid-column: 1/4;
+		color: #FFF;
+		grid-row: 1/2;
+	}
+	
+	h2 {
+		margin: 30px 20px 20px 60px;
+		color: #FFF;	
+		grid-column: 1/4;
+		grid-row: 3/4;
+	}
+	
+	.black {
+		color: #000;	
+	}
+	
+	p {
+		margin: 20px;;
+		line-height: 250%;	
+		padding: 20px;
+		background-color: #D8DEE2;
+		box-shadow: 10px 10px 5px #000;
+		font-family: 'Russo One', sans-serif;
+		grid-column: 1/4;
+	}
+	
+	.big {
+		background-color: #F5F5E2;	
+		grid-column: 1/4;
+		grid-row: 4/5;
+	}
+	
+	.left {
+		grid-column: 1/2;
+	}
+	
+	.mid {
+		grid-column: 2/3;	
+	}
+	
+	.right {
+		grid-column: 3/4;
+	}	
+	
+	.left, .mid, .right {
+		grid-row: 5/6;	
+	}
+	
+	#container, #myCanvas {
+		width: 1000px;	
+	}
+}
